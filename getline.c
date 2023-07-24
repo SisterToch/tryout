@@ -1,12 +1,11 @@
-#include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-
+#include "main.h"
 ssize_t _getline(char **lineptr, size_t *n)
 {
 	if (lineptr == NULL || n == NULL)
 	{
-		write(STDERR_FILENO, "Error: Invalid input\n", 48);
+		write(STDERR_FILENO, "Error: Invalid input\n", 21);
         return (-1);
 	}
 
@@ -25,12 +24,12 @@ ssize_t _getline(char **lineptr, size_t *n)
 			size_t new_buffer = (*n) * 2;
 			char *new_lineptr = realloc(*lineptr, new_buffer);
 			
-			if (newline_ptr == NULL)
+			if (new_lineptr == NULL)
 			{
 				write(STDERR_FILENO, "Error: Memory alloc failed\n", 31);
 				return -1;
 			}
-			*lineptr = newline_ptr;
+			*lineptr = new_lineptr;
 			*n = new_buffer;
 		}
 
