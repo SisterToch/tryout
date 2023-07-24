@@ -26,7 +26,7 @@ ssize_t _getline(char **lineptr, size_t *n)
 			
 			if (new_lineptr == NULL)
 			{
-				write(STDERR_FILENO, "Error: Memory alloc failed\n", 31);
+				write(STDERR_FILENO, "Error: Memory alloc failed\n", 27);
 				return -1;
 			}
 			*lineptr = new_lineptr;
@@ -43,6 +43,6 @@ ssize_t _getline(char **lineptr, size_t *n)
 	}
 
 	(*lineptr)[position] = '\0';
-	return (position);
+	return (ssize_t)position;
 }
 
