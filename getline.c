@@ -12,6 +12,18 @@ ssize_t _getline(char **lineptr, size_t *n)
 	size_t position = 0;/*in the buffer*/
 	char store;/*stores the character to be read*/
 
+	if (*lineptr == NULL)
+	{/*allocate memory
+		*n = 128;/*random initial buffer size*/
+		*lineptr = (char *)malloc(*n);
+
+		if (*lineptr == NULL)
+		{
+			write(STDERR_FILENO, "Error:memory alloc failed", 30);
+			return (-1);
+		}
+	}
+
 	while (1)
 	{/*create an loops that breaks after reading and returns 1*/
 		if (read(STDIN_FILENO, &store, 1) != 1)
