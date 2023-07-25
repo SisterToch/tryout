@@ -7,8 +7,12 @@ char *_strtok(char *str, const char *delimiters)
 	static char *last_token; char *start_token;
 	if (str == NULL)
 	{
-		str = last_token;
-	}/*if str is null, set to the last token*/
+		return (NULL);
+	}
+	else
+	{
+		last_token = str;
+	}/*set to last token*/
 	
 	while (*str != '\0')
 	{
