@@ -7,11 +7,10 @@ char *_strtok(char *str, const char *delimiters)
 	static char *last_token; char *start_token;
 	if (str == NULL)
 	{
-		last_token != '\0';
 		str = last_token;
 	}/*if str is null, set to the last token*/
 	
-	while (*str != NULL)
+	while (*str != '\0')
 	{
 		for (i = 0; delimiters[i] != '\0'; i++)
 		{
@@ -20,7 +19,7 @@ char *_strtok(char *str, const char *delimiters)
 				break;
 			}
 		}
-		if (delimiter[i] == '\0')
+		if (delimiters[i] == '\0')
 		{
 			break;
 		}
@@ -32,8 +31,9 @@ char *_strtok(char *str, const char *delimiters)
 		return (NULL);
 	}
 	
-	start_token = NULL;
-	while (*str != NULL)
+	start_token = str;
+
+	while (*str != '\0')
 	{
 		for(i = 0; delimiters[i] != '\0'; i++)
 		{
