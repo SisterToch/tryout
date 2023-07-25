@@ -1,13 +1,14 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include "main.h"
+
 ssize_t _getline(char **lineptr, size_t *n)
 {
-	if (lineptr == NULL || n == NULL)
+	/*if (lineptr == NULL || n == NULL)
 	{
 		write(STDERR_FILENO, "Error: Invalid input\n", 21);
-        return (-1);
-	}
+		 return (-1);
+	}*/
 
 	size_t position = 0;/*in the buffer*/
 	char store;/*stores the character to be read*/
@@ -55,6 +56,6 @@ ssize_t _getline(char **lineptr, size_t *n)
 	}
 
 	(*lineptr)[position] = '\0';
-	return (ssize_t)position;
+	return (position);
 }
 
