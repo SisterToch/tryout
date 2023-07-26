@@ -27,7 +27,11 @@ char* _strcpy(const char *src)
 
 	return (dest);
 }
-
+/**
+ * _strtok - function that delimit
+ * @str: the string to be tokenized
+ * @delimiters: the delimiters
+ **/
 char *_strtok(char *str, const char *delimiters)
 {
 	size_t i;
