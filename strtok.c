@@ -1,25 +1,31 @@
 #include <stddef.h>
 #include <stdlib.h>
+
 /**
+* _strcpy - function that makes a copy of
+* a string
+* @src : the source string
+* Return: returns the copied string
 */
-char* _strcpy(const char *src)
+char *_strcpy(const char *src)
 {
 	char *dest;
 	size_t len = 0, i;
 
 	if (src == NULL)
 		return (NULL);
+
 	while (src[len] != '\0')
 	{
 		len++;
 	}
 
-	dest = (char*)malloc(len + 1);
+	dest = (char *)malloc(len + 1);
 	if (dest == NULL)
 	{
 		return (NULL);
 	}
-	
+
 	for (i = 0; i <= len; i++)
 	{
 		dest[i] = src[i];
@@ -27,10 +33,12 @@ char* _strcpy(const char *src)
 
 	return (dest);
 }
+
 /**
  * _strtok - function that delimit
  * @str: the string to be tokenized
  * @delimiters: the delimiters
+ * Return: the next token
  **/
 char *_strtok(char *str, const char *delimiters)
 {
@@ -38,6 +46,7 @@ char *_strtok(char *str, const char *delimiters)
 	int located_d = 0;
 	static char *last_token;
 	char *start_token;
+
 	if (str == NULL)
 	{
 		return (NULL);
@@ -46,7 +55,7 @@ char *_strtok(char *str, const char *delimiters)
 	{
 		str = _strcpy(str);
 		last_token = str;
-	}/*set to last token*/
+	} /*set to last token*/
 
 	while (*str != '\0')
 	{
