@@ -4,15 +4,16 @@
 */
 char* _strcpy(const char *src)
 {
-	char *dest; size_t len = 0;
-	size_t i;
+	char *dest;
+	size_t len = 0, i;
+
 	if (src == NULL)
-		return NULL;
+		return (NULL);
 	while (src[len] != '\0')
 	{
 		len++;
 	}
-	
+
 	dest = (char*)malloc(len + 1);
 	if (dest == NULL)
 	{
@@ -42,7 +43,7 @@ char *_strtok(char *str, const char *delimiters)
 		str = _strcpy(str);
 		last_token = str;
 	}/*set to last token*/
-	
+
 	while (*str != '\0')
 	{
 		for (i = 0; delimiters[i] != '\0'; i++)
@@ -60,16 +61,16 @@ char *_strtok(char *str, const char *delimiters)
 		}
 		str++;
 	}
-	
+
 	if (*str == '\0')
 	{
 		free(str);
 		last_token = NULL;
 		return (NULL);
 	}
-	
+
 	start_token = str;
 	last_token = str + 1;
 
-	return start_token;
+	return (start_token);
 }
