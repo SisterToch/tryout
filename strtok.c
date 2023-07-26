@@ -1,16 +1,45 @@
 #include <stddef.h>
+#include <stdlib.h>
 /**
 */
+char* _strcpy(const char *src)
+{
+	char *dest; size_t len = 0;
+	size_t i;
+	if (src == NULL)
+		return NULL;
+	while (src[len] != '\0')
+	{
+		len++;
+	}
+	
+	dest = (char*)malloc(len + 1);
+	if (dest == NULL)
+	{
+		return (NULL);
+	}
+	
+	for (i = 0; i <= len; i++)
+	{
+		dest[i] = src[i];
+	}
+
+	return (dest);
+}
+
 char *_strtok(char *str, const char *delimiters)
 {
-	size_t i; int located_d = 0;
-	static char *last_token; char *start_token;
+	size_t i;
+	int located_d = 0;
+	static char *last_token;
+	char *start_token;
 	if (str == NULL)
 	{
 		return (NULL);
 	}
 	else
 	{
+		str = _strcpy(str);
 		last_token = str;
 	}/*set to last token*/
 	
@@ -20,10 +49,12 @@ char *_strtok(char *str, const char *delimiters)
 		{
 			if (*str == delimiters[i])
 			{
+				*str = '\0';
+				located_d = 1;
 				break;
 			}
 		}
-		if (delimiters[i] == '\0')
+		if (located_d)
 		{
 			break;
 		}
@@ -32,38 +63,13 @@ char *_strtok(char *str, const char *delimiters)
 	
 	if (*str == '\0')
 	{
+		free(str);
+		last_token = NULL;
 		return (NULL);
 	}
 	
 	start_token = str;
+	last_token = str + 1;
 
-	while (*str != '\0')
-	{
-		for(i = 0; delimiters[i] != '\0'; i++)
-		{
-			if (*str == delimiters[i])
-			{
-				*str = '\0';
-				located_d = 1;
-				break;
-			}
-		}
-		
-		if (located_d)
-		{
-			break;
-		}
-		str++;
-	}
-	if (located_d)
-	{
-		last_token = str + 1;
-	}
-	else
-	{
-		last_token = NULL;
-	}
-	
-	return (start_token);
+	return start_token;
 }
-
