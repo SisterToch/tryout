@@ -21,7 +21,7 @@ ssize_t _getline(char **lineptr, size_t *n)
 		}
 	}
 
-	position = readInput2Buffer(buffer, sizeof(buffer), *lineptr, *n);
+	position = readInput_Buffer(buffer, sizeof(buffer), *lineptr, *n);
 
 	if (position == (size_t)-1)
 	{
@@ -53,12 +53,12 @@ int allocate_Buffer(char **lineptr, size_t *n)
 }
 
 /**
- * readInput2Buffer - Reads input from stdin and stores it in the buffer
+ * readInput_Buffer - Reads input from stdin and stores it in the buffer
  * @buffer: Pointer to the buffer
  * @n: Size of the buffer
  * Return: Number of characters read
  */
-size_t readInput2Buffer(char *buffer, size_t n)
+size_t readInput_Buffer(char *buffer, size_t n)
 {
 	size_t position = 0; /* Position in the buffer */
 	char store; /* Stores the character to be read */
@@ -78,24 +78,15 @@ size_t readInput2Buffer(char *buffer, size_t n)
 			if (new_lineptr == NULL)
 			{
 				write(STDERR_FILENO, "Error: Memory alloc failed\n", 27);
-				free(lineptr); /* Free the previously allocated memory */
+				free(buffer); /* Free the previously allocated memory */
 				return (-1);
 			}
 
 			copyBufferContent(new_lineptr, lineptr, position);
 
-			free(buffer);
+			free(lineptr);
 			lineptr = new_lineptr;
 			n = new_buffer;
-		}
-
-		if (position >= buffer_size)
-		{
-			break;
-		}
-		if (read(STDIN_FILENO, &store, 1) != 1)
-		{
-			break;
 		}
 
 		buffer[position++] = store;
