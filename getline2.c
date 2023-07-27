@@ -58,7 +58,7 @@ int allocate_Buffer(char **lineptr, size_t *n)
  * @n: Size of the buffer
  * Return: Number of characters read
  */
-size_t readInput_Buffer(char *buffer, size_t n)
+size_t readInput_Buffer(char *buffer, size_t n, char **lineptr, size_t *len)
 {
 	size_t position = 0; /* Position in the buffer */
 	char store; /* Stores the character to be read */
@@ -82,10 +82,9 @@ size_t readInput_Buffer(char *buffer, size_t n)
 				return (-1);
 			}
 
-			copyBufferContent(new_lineptr, lineptr, position);
-
+			copyBufferContent(new_lineptr, lineptr, *len);
 			free(lineptr);
-			lineptr = new_lineptr;
+			*lineptr = new_lineptr;
 			n = new_buffer;
 		}
 
@@ -97,6 +96,7 @@ size_t readInput_Buffer(char *buffer, size_t n)
 		}
 	}
 
+	*len = position;
 	return (position);
 }
 
@@ -112,5 +112,7 @@ void copyBufferContent(char *dest, const char *src, size_t len)
 	{
 		dest[i] = src[i];
 	}
+
+	dest[len] = '\0';
 }
 
