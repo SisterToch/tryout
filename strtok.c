@@ -40,10 +40,8 @@ char *_strcpy(const char *src)
  **/
 char *_strtok(char *str, const char *delimiters)
 {
-	size_t i;
-	int located_d = 0;
-	static char *last_token;
-	char *start_token;
+	size_t i, j, token_len;
+	char *last_token, char *start_token, token_buffer;
 
 	if (str == NULL)
 		return (NULL);
