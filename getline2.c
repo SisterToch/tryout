@@ -10,6 +10,9 @@
  */
 ssize_t _getline(char **lineptr, size_t *n)
 {
+	static char buffer[128];
+	size_t position;
+	
 	if (*lineptr == NULL)
 	{
 		if (allocate_Buffer(lineptr, n) == -1)
@@ -18,7 +21,7 @@ ssize_t _getline(char **lineptr, size_t *n)
 		}
 	}
 
-	size_t position = readInput2Buffer(*lineptr, *n);
+	position = readInput2Buffer(buffer, sizeof(buffer), *lineptr, *n);
 
 	if (position == (size_t)-1)
 	{
@@ -75,15 +78,24 @@ size_t readInput2Buffer(char *buffer, size_t n)
 			if (new_lineptr == NULL)
 			{
 				write(STDERR_FILENO, "Error: Memory alloc failed\n", 27);
-				free(buffer); /* Free the previously allocated memory */
+				free(lineptr); /* Free the previously allocated memory */
 				return (-1);
 			}
 
-			copyBufferContent(new_lineptr, buffer, position);
+			copyBufferContent(new_lineptr, lineptr, position);
 
 			free(buffer);
-			buffer = new_lineptr;
+			lineptr = new_lineptr;
 			n = new_buffer;
+		}
+
+		if (position >= buffer_size)
+		{
+			break;
+		}
+		if (read(STDIN_FILENO, &store, 1) != 1)
+		{
+			break;
 		}
 
 		buffer[position++] = store;
