@@ -20,7 +20,7 @@ char *_strtok(char *string, char *delimiter)
 		position = string;
 	for (; *position != '\0'; position++)
 	{
-		for (; delimiter[i] != '\0'; i++)
+		for (i = 0; delimiter[i] != '\0'; i++)
 		{
 			if (*position == delimiter[i])
 			break;
@@ -33,7 +33,7 @@ char *_strtok(char *string, char *delimiter)
 		return (NULL);
 	for (; *position != '\0'; position++)
 	{
-		for (; delimiter[i] != '\0'; i++)
+		for (i = 0; delimiter[i] != '\0'; i++)
 		{
 			if (*position == delimiter[i])
 			{
