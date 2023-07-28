@@ -1,22 +1,24 @@
 #include <stdio.h>
-#include <stdlib.h>
+#include <string.h>
 #include "main.h"
 
 int main()
 {
-    char *line = NULL;
-    size_t len = 0;
-    ssize_t nread;
+    char input[] = "Hello, World! This is a test.";
+    char delim[] = " ,!.";
+    char *token;
 
-    printf("Enter lines of text (Ctrl+D to quit):\n");
+    printf("Input string: %s\n", input);
+    printf("Delimiter: \"%s\"\n", delim);
 
-    while ((nread = _getline(&line, &len)) != -1)
+    token = _strtok(input, delim);
+
+    while (token != NULL)
     {
-        printf("Characters read: %zd\n", nread);
-        printf("Line: %s", line);
+        printf("Token: \"%s\"\n", token);
+        token = _strtok(NULL, delim);
     }
 
-    free(line);
     return 0;
 }
 

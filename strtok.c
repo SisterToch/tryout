@@ -1,81 +1,44 @@
-#include <stddef.h>
-#include <stdlib.h>
-
+#include "main.h"
 /**
-* _strcpy - function that makes a copy of
-* a string
-* @src : the source string
-* Return: returns the copied string
-*/
-char *_strcpy(const char *src)
-{
-	char *dest;
-	size_t len = 0, i;
-
-	if (src == NULL)
-		return (NULL);
-
-	while (src[len] != '\0')
-	{
-		len++;
-	}
-
-	dest = (char *)malloc(len + 1);
-	if (dest == NULL)
-		return (NULL);
-
-	for (i = 0; i <= len; i++)
-	{
-		dest[i] = src[i];
-	}
-
-	return (dest);
-}
-
-/**
- * _strtok - function that delimit
- * @str: the string to be tokenized
- * @delimiters: the delimiters
+ * _strtok - replica of the strtok func
+ * @string: the string to be tokenized
+ * @delimiter: the delimiters
  * Return: the next token
  **/
-char *_strtok(char *str, const char *delimiters)
+char *_strtok(char *string, char *delimiter)
 {
-	size_t i, j, token_len;
-	char *last_token, char *start_token, token_buffer;
+	static char *position;
+	char *start_tok;
+	int i = 0;
 
-	if (str == NULL)
+	if (string == NULL)
 		return (NULL);
-	if (str != NULL)
+	if (string != NULL)
+		position = string;
+	for (; *position != '\0'; position++)
 	{
-		str = _strcpy(str);
-		last_token = str;
-	}
-	while (*str != '\0')
-	{
-		for (i = 0; delimiters[i] != '\0'; i++)
+		for (; delimiter[i] != '\0'; i++)
 		{
-			if (*str == delimiters[i])
+			if (*position == delimiter[i])
+			break;
+		}
+		if (delimiter[i] == '\0')
+			break;
+	}
+	start_tok = position;
+	if (*start_tok == '\0')
+		return (NULL);
+	for (; *position != '\0'; position++)
+	{
+		for (; delimiter[i] != '\0'; i++)
+		{
+			if (*position == delimiter[i])
 			{
-				*str = '\0';
-				located_d = 1;
-				break;
+				*position = '\0';
+				position++;
+				return (start_tok);
 			}
 		}
-		if (located_d)
-			break;
-
-		str++;
 	}
-
-	if (*str == '\0')
-	{
-		free(str);
-		last_token = NULL;
-		return (NULL);
-	}
-
-	start_token = str;
-	last_token = str + 1;
-
-	return (start_token);
+	return (start_tok);
 }
